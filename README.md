@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# Ticket Booking System (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+A responsive, modern React application that serves as the user and admin interface for the Ticket Booking API. It provides an intuitive UI for creating shows, browsing available events, and interactive seat selection with real-time feedback .
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+* **Framework:** React.js
+* **Language:** TypeScript
+* **Routing:** React Router DOM (`react-router-dom`)
+* **State Management:** React Context API
+* **HTTP Client:** Axios
+---
 
-## React Compiler
+## Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+###  Admin Features
+* **Dashboard (`/admin`):** A dedicated route for administrators to create new shows or events.
+* **Show Creation:** Form to input Show Name, Start Time, and Total Seats . Triggers backend bulk seat generation.
 
-## Expanding the ESLint configuration
+###  User Features
+* **Show Catalog (`/`):** Displays a list of all available shows utilizing the Context API to prevent redundant fetching.
+* **Interactive Booking (`/booking/:id`):** * Visual seat grid indicating `AVAILABLE`, `SELECTED`, and `BOOKED` statuses .
+  * Direct DOM interaction for highlighting selected seats prior to confirmation.
+  * One-click bulk booking submission.
+* **Graceful Error Handling:** Provides user-friendly `alert()` feedback for successful bookings, API failures, or concurrency conflicts.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Setup & Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Install dependencies:**
+   ```bash
+   npm install
+API Configuration:
+The base URL for the backend API is configured in src/api/api.ts. Update the baseURL if running the backend locally:TypeScriptconst API = axios.create({
+  baseURL: "http://localhost:3000/", // Change to your deployed backend URL for production
+});
+Start the development server:Bashnpm run dev
+Application Structure & State ManagementGlobal State (AppContext): Manages the core shows array and application loading state . This centralizes data fetching and ensures components only re-render when necessary, fulfilling the requirement for efficient API usage.Component Architecture: Separated cleanly into pages/ (Home, Admin, Booking), context/ (AppProvider), and api/ (Axios service layer) for modularity and maintainability.
