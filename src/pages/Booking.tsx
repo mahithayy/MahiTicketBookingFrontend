@@ -59,7 +59,7 @@ const getSeatClass = (seat: Seat) => {
       {/* Legend */}
       <div className="legend">
         <span><div className="legend-box available" style={{ border: '2px solid var(--border)' }}></div> Available</span>
-        <span><div className="legend-box selected" style={{ background: 'var(--accent)' }}></div> Selected</span>
+        <span><div className="legend-box selected" style={{ background: 'var(--seat-selected)' }}></div> Selected</span>
         <span><div className="legend-box booked" style={{ background: '#ef4444' }}></div> Booked</span>
       </div>
 
